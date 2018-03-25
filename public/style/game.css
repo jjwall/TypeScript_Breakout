@@ -1,0 +1,29 @@
+body, html {
+	background-color: black;
+}
+
+#container {
+    margin: auto;
+    width: 600px;
+}
+.sidebar { 
+    width: 850px;
+    position: fixed;
+    height: 100%;
+}
+.logo {
+    height: 50%;
+    position: relative;
+    top: 0;
+}
+#screen {
+    position:absolute;
+}
+
+canvas {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	width: 70%;
+	background-color: black;
+}
