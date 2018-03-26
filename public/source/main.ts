@@ -1,6 +1,7 @@
 //import Block = require("./Block");
-import { Paddle } from './classes/Paddle';
-import { Block } from './classes/Block';
+import Paddle from './classes/Paddle';
+import Block from './classes/Block';
+import accelerate from './functions/accelerate';
 
 // main global object
 var canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -10,7 +11,7 @@ var canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
     canvasH: 1050,
     keyLeft: false,
     keyRight: false,
-    p: new Paddle(350, 1000, 20, 100, 7)
+    p: new Paddle(350, 1000, 20, 100, 0, 10)
 }
 
 // keyboard controls
@@ -32,16 +33,25 @@ window.onkeyup = function(e) {
     }
 }
 
+// main loop
 setInterval(function(){
     ctx.strokeStyle = 'white';
     ctx.clearRect(0, 0, m.canvasW, m.canvasH);
     ctx.beginPath();
     ctx.rect(m.p.x, m.p.y, m.p.w, m.p.h);
     ctx.stroke();
+
     if (m.keyLeft) {
-        m.p.x -= m.p.v;
+        m.p.currentVel = accelerate(m.p.currentVel, m.p.maxVel, false);
+        m.p.x -= m.p.currentVel;
+        console.log(m.p.currentVel);
     }
+
     if (m.keyRight) {
-        m.p.x += m.p.v;
+        m.p.currentVel = accelerate(m.p.currentVel, m.p.maxVel, false);
+        m.p.x += m.p.currentVel;
     }
+
+    // if not these deaccelerate...
+    
 }, 16.6666666666666667);

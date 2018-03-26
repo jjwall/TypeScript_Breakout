@@ -2,19 +2,21 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
     var Paddle = /** @class */ (function () {
-        function Paddle(xpos, ypos, height, width, velocity) {
+        function Paddle(xpos, ypos, height, width, currentVelocity, maxVelocity) {
             this.xpos = xpos;
             this.ypos = ypos;
             this.height = height;
             this.width = width;
-            this.velocity = velocity;
+            this.currentVelocity = currentVelocity;
+            this.maxVelocity = maxVelocity;
             this.x = xpos;
             this.y = ypos;
             this.h = height;
             this.w = width;
-            this.v = velocity;
+            this.currentVel = currentVelocity;
+            this.maxVel = maxVelocity;
         }
         return Paddle;
     }());
-    exports.Paddle = Paddle;
+    exports["default"] = Paddle;
 });

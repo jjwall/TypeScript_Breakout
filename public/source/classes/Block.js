@@ -14,5 +14,5 @@ define(["require", "exports"], function (require, exports) {
         }
         return Block;
     }());
-    exports.Block = Block;
+    exports["default"] = Block;
 });
