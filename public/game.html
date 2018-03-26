@@ -3,20 +3,17 @@
 	<head>
 		<meta charset = "utf-8">
         <title>Breakout</title>
-        <script data-main="scripts/main" src="./scripts/require.js"></script>
+        <script data-main="source/main" src="./source/lib/require.js"></script>
 		<link rel="stylesheet" href="./style/game.css">
 	</head>
 	<body>
         <div id="container"> <!-- horizontal centering (margin:auto) -->
             <div class="sidebar"> <!-- keep in screen when zooming (position:fixed) -->
                 <div class="logo"> <!-- vertical centering (height 50% of 100%) -->
-                    <canvas id="screen" width="800" height="1050" style="border: 1px solid #ffffff;">
+                    <canvas id="gameScreen" width="800" height="1050" style="border: 1px solid #ffffff;">
                     </canvas>
                 </div>
             </div>
         </div>
-        <!-- <script>var exports = {};</script> -->
-        <!-- <script src="./source/Block.js"></script> -->
-		<!-- <script src="./source/main.js"></script> -->
 	</body>
 </html>
