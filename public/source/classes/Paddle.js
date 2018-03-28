@@ -13,41 +13,55 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
     exports.__esModule = true;
     var Paddle = /** @class */ (function (_super) {
         __extends(Paddle, _super);
-        function Paddle(xpos, ypos, height, width, currentVelocity, maxVelocity) {
+        function Paddle(xpos, ypos, height, width, currentVelocity) {
+            if (currentVelocity === void 0) { currentVelocity = 0; }
             var _this = _super.call(this, xpos, ypos, height, width) || this;
             _this.xpos = xpos;
             _this.ypos = ypos;
             _this.height = height;
             _this.width = width;
             _this.currentVelocity = currentVelocity;
-            _this.maxVelocity = maxVelocity;
             _this.currentVel = currentVelocity;
-            _this.maxVel = maxVelocity;
             return _this;
         }
-        Paddle.prototype.accelerate = function (currentVelocity, maxVelocity, deaccelerate, direction) {
+        Paddle.prototype.accelerate = function (currentVelocity, maxVelocity, direction) {
             switch (direction) {
                 case "left":
                     if (currentVelocity > -maxVelocity) {
-                        this.currentVel -= .5;
+                        this.currentVel -= Paddle.accl;
+                        console.log(this.currentVel);
                     }
                     break;
                 case "right":
                     if (currentVelocity < maxVelocity) {
-                        this.currentVel += .5;
+                        this.currentVel += Paddle.accl;
+                        console.log(this.currentVel);
                     }
                     break;
                 case "aimless":
                     if (currentVelocity < 0) {
-                        this.currentVel += .5;
+                        this.currentVel += Paddle.accl;
                     }
                     else if (currentVelocity > 0) {
-                        this.currentVel -= .5;
+                        this.currentVel -= Paddle.accl;
                     }
                     break;
             }
             this.x += this.currentVel;
         };
+        Paddle.prototype.update = function (keyLeft, keyRight) {
+            if (keyLeft && !keyRight) {
+                this.accelerate(this.currentVel, Paddle.maxVel, "left");
+            }
+            else if (keyRight && !keyLeft) {
+                this.accelerate(this.currentVel, Paddle.maxVel, "right");
+            }
+            else if (!keyRight && !keyLeft || keyRight && keyLeft) {
+                this.accelerate(this.currentVel, Paddle.maxVel, "aimless");
+            }
+        };
+        Paddle.maxVel = 8;
+        Paddle.accl = .4;
         return Paddle;
     }(BaseEntity_1["default"]));
     exports["default"] = Paddle;

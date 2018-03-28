@@ -8,13 +8,14 @@ import drawEntities from './functions/drawEntities';
 var canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
     ctx = <CanvasRenderingContext2D>canvas.getContext('2d'),
     g = {
-    canvasW: 800,
-    canvasH: 1050,
-    keyLeft: false,
-    keyRight: false,
-    entities: new Array<BaseEntity>(),
-    player: new Paddle(350, 1000, 20, 100, 0, 10)
-}
+        canvasW: 800,
+        canvasH: 1050,
+        frameMilliSecond: 12, // 16.6666666666666667 -> would be 60 frames/sec (12 is less choppy)
+        keyLeft: false,
+        keyRight: false,
+        entities: new Array<BaseEntity>(),
+        player: new Paddle(350, 1000, 20, 100)
+    }
 
 g.entities.push(g.player);
 
@@ -44,15 +45,5 @@ window.onkeyup = function(e) {
 // main loop
 setInterval(function(){
     drawEntities(ctx, g.entities, g.canvasW, g.canvasH);
-
-    if (g.keyLeft && !g.keyRight) {
-        g.player.accelerate(g.player.currentVel, g.player.maxVel, false, "left");
-    }
-    else if (g.keyRight && !g.keyLeft) {
-        g.player.accelerate(g.player.currentVel, g.player.maxVel, false, "right");
-    }
-    else if (!g.keyRight && !g.keyLeft || g.keyRight && g.keyLeft) {
-        g.player.accelerate(g.player.currentVel, g.player.maxVel, false, "aimless");
-    }
-    
-}, 16.6666666666666667);
+    g.player.update(g.keyLeft, g.keyRight);
+}, g.frameMilliSecond);

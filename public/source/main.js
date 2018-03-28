@@ -5,10 +5,11 @@ define(["require", "exports", "./classes/Paddle", "./classes/Block", "./function
     var canvas = document.getElementById('gameScreen'), ctx = canvas.getContext('2d'), g = {
         canvasW: 800,
         canvasH: 1050,
+        frameMilliSecond: 12,
         keyLeft: false,
         keyRight: false,
         entities: new Array(),
-        player: new Paddle_1["default"](350, 1000, 20, 100, 0, 10)
+        player: new Paddle_1["default"](350, 1000, 20, 100)
     };
     g.entities.push(g.player);
     var block1 = new Block_1["default"](500, 500, 50, 50);
@@ -33,14 +34,6 @@ define(["require", "exports", "./classes/Paddle", "./classes/Block", "./function
     // main loop
     setInterval(function () {
         drawEntities_1["default"](ctx, g.entities, g.canvasW, g.canvasH);
-        if (g.keyLeft && !g.keyRight) {
-            g.player.accelerate(g.player.currentVel, g.player.maxVel, false, "left");
-        }
-        else if (g.keyRight && !g.keyLeft) {
-            g.player.accelerate(g.player.currentVel, g.player.maxVel, false, "right");
-        }
-        else if (!g.keyRight && !g.keyLeft || g.keyRight && g.keyLeft) {
-            g.player.accelerate(g.player.currentVel, g.player.maxVel, false, "aimless");
-        }
-    }, 16.6666666666666667);
+        g.player.update(g.keyLeft, g.keyRight);
+    }, g.frameMilliSecond);
 });
