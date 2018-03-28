@@ -1,12 +1,12 @@
-export default class Block {
-    x: number;
-    y: number;
-    h: number;
-    w: number;
-    constructor(public xpos: number, public ypos: number, public height: number, public width: number) {
-        this.x = xpos;
-        this.y = ypos;
-        this.h = height;
-        this.w = width;
+import BaseEntity from './BaseEntity';
+
+export default class Block extends BaseEntity
+{
+    constructor(public xpos: number,
+                public ypos: number,
+                public height: number,
+                public width: number)
+    {
+        super(xpos, ypos, height, width);
     }
 }
