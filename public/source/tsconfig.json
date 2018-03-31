@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": false
+    },
+    "files": [
+        "main.ts",
+        "classes/BaseEntity.ts",
+        "classes/Paddle.ts",
+        "classes/Block.ts",
+        "functions/drawEntities.ts"
+    ]
+}

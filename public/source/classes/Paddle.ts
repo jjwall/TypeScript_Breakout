@@ -1,6 +1,6 @@
-import BaseEntity from './BaseEntity';
+import { BaseEntity } from './BaseEntity';
 
-export default class Paddle extends BaseEntity
+export class Paddle extends BaseEntity
 {
     currentVel: number;
     static maxVel: number = 8;
@@ -14,7 +14,7 @@ export default class Paddle extends BaseEntity
         super(xpos, ypos, height, width);
         this.currentVel = currentVelocity;
     }
-    accelerate(currentVelocity: number, maxVelocity: number, direction: string)
+    accelerate(currentVelocity: number, maxVelocity: number, direction: string) : void
     {
         switch(direction) {
             case "left":
@@ -40,7 +40,7 @@ export default class Paddle extends BaseEntity
         }
         this.x += this.currentVel;
     }
-    update(keyLeft: boolean, keyRight: boolean)
+    update(keyLeft: boolean, keyRight: boolean) : void
     {
         if (keyLeft && !keyRight) {
             this.accelerate(this.currentVel, Paddle.maxVel, "left");

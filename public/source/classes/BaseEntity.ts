@@ -1,4 +1,4 @@
-export default abstract class BaseEntity
+export abstract class BaseEntity
 {
     x: number;
     y: number;

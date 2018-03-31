@@ -1,7 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
-    var BaseEntity = /** @class */ (function () {
+    var BaseEntity = (function () {
         function BaseEntity(xpos, ypos, height, width) {
             this.xpos = xpos;
             this.ypos = ypos;
@@ -17,5 +17,5 @@ define(["require", "exports"], function (require, exports) {
         };
         return BaseEntity;
     }());
-    exports["default"] = BaseEntity;
+    exports.BaseEntity = BaseEntity;
 });

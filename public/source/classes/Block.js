@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 define(["require", "exports", "./BaseEntity"], function (require, exports, BaseEntity_1) {
     "use strict";
     exports.__esModule = true;
-    var Block = /** @class */ (function (_super) {
+    var Block = (function (_super) {
         __extends(Block, _super);
         function Block(xpos, ypos, height, width) {
             var _this = _super.call(this, xpos, ypos, height, width) || this;
@@ -22,6 +22,6 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
             return _this;
         }
         return Block;
-    }(BaseEntity_1["default"]));
-    exports["default"] = Block;
+    }(BaseEntity_1.BaseEntity));
+    exports.Block = Block;
 });

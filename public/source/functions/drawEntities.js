@@ -10,5 +10,5 @@ define(["require", "exports"], function (require, exports) {
         });
         ctx.stroke();
     }
-    exports["default"] = drawEntities;
+    exports.drawEntities = drawEntities;
 });

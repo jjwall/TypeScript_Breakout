@@ -1,6 +1,6 @@
-import BaseEntity from './BaseEntity';
+import { BaseEntity } from './BaseEntity';
 
-export default class Block extends BaseEntity
+export class Block extends BaseEntity
 {
     constructor(public xpos: number,
                 public ypos: number,

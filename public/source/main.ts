@@ -1,26 +1,24 @@
 //import Block = require("./Block");
-import Paddle from './classes/Paddle';
-import Block from './classes/Block';
-import BaseEntity from './classes/BaseEntity';
-import drawEntities from './functions/drawEntities';
+import { Paddle } from './classes/Paddle';
+import { Block } from './classes/Block';
+import { BaseEntity } from './classes/BaseEntity';
+import { drawEntities } from './functions/drawEntities';
 
 // main global object
-var canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
+let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
     ctx = <CanvasRenderingContext2D>canvas.getContext('2d'),
     g = {
-        canvasW: 800,
-        canvasH: 1050,
-        frameMilliSecond: 12, // 16.6666666666666667 -> would be 60 frames/sec (12 is less choppy)
-        keyLeft: false,
-        keyRight: false,
-        entities: new Array<BaseEntity>(),
+        canvasW: <number> 800,
+        canvasH: <number> 1050,
+        frameMilliSecond: <number> 12, // 16.6666666666666667 -> would be 60 frames/sec (12 is less choppy)
+        keyLeft: <boolean> false,
+        keyRight: <boolean> false,
+        entities: new Array <BaseEntity>(),
         player: new Paddle(350, 1000, 20, 100)
     }
 
 g.entities.push(g.player);
-
-var block1 = new Block(500, 500, 50, 50);
-
+let block1 = new Block(500, 500, 50, 50);
 g.entities.push(block1);
 
 // keyboard controls

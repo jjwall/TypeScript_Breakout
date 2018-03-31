@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 define(["require", "exports", "./BaseEntity"], function (require, exports, BaseEntity_1) {
     "use strict";
     exports.__esModule = true;
-    var Paddle = /** @class */ (function (_super) {
+    var Paddle = (function (_super) {
         __extends(Paddle, _super);
         function Paddle(xpos, ypos, height, width, currentVelocity) {
             if (currentVelocity === void 0) { currentVelocity = 0; }
@@ -63,6 +63,6 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
         Paddle.maxVel = 8;
         Paddle.accl = .4;
         return Paddle;
-    }(BaseEntity_1["default"]));
-    exports["default"] = Paddle;
+    }(BaseEntity_1.BaseEntity));
+    exports.Paddle = Paddle;
 });
