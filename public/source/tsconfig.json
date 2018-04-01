@@ -10,6 +10,7 @@
         "main.ts",
         "classes/BaseEntity.ts",
         "classes/Paddle.ts",
+        "classes/Ball.ts",
         "classes/Block.ts",
         "functions/drawEntities.ts",
         "interfaces/ICollision.ts"
