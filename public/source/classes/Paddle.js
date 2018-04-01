@@ -13,13 +13,14 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
     exports.__esModule = true;
     var Paddle = (function (_super) {
         __extends(Paddle, _super);
-        function Paddle(xpos, ypos, height, width, currentVelocity) {
+        function Paddle(xpos, ypos, height, width, canvasW, currentVelocity) {
             if (currentVelocity === void 0) { currentVelocity = 0; }
             var _this = _super.call(this, xpos, ypos, height, width) || this;
             _this.xpos = xpos;
             _this.ypos = ypos;
             _this.height = height;
             _this.width = width;
+            _this.canvasW = canvasW;
             _this.currentVelocity = currentVelocity;
             _this.currentVel = currentVelocity;
             return _this;
@@ -29,14 +30,22 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                 case "left":
                     if (currentVelocity > -maxVelocity) {
                         this.currentVel -= Paddle.accl;
-                        console.log(this.currentVel);
                     }
+                    if (this.currentVel > 0 && this.x >= (this.canvasW - this.w)) {
+                        this.currentVel -= this.currentVel;
+                    }
+                    if (this.x >= 0)
+                        this.x += this.currentVel;
                     break;
                 case "right":
                     if (currentVelocity < maxVelocity) {
                         this.currentVel += Paddle.accl;
-                        console.log(this.currentVel);
                     }
+                    if (this.currentVel < 0 && this.x <= 0) {
+                        this.currentVel -= this.currentVel;
+                    }
+                    if (this.x <= (this.canvasW - this.w))
+                        this.x += this.currentVel;
                     break;
                 case "aimless":
                     if (currentVelocity < 0) {
@@ -45,9 +54,10 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                     else if (currentVelocity > 0) {
                         this.currentVel -= Paddle.accl;
                     }
+                    if (this.x >= 0 && this.x <= (this.canvasW - this.w))
+                        this.x += this.currentVel;
                     break;
             }
-            this.x += this.currentVel;
         };
         Paddle.prototype.update = function (keyLeft, keyRight) {
             if (keyLeft && !keyRight) {

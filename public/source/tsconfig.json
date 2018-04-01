@@ -11,6 +11,7 @@
         "classes/BaseEntity.ts",
         "classes/Paddle.ts",
         "classes/Block.ts",
-        "functions/drawEntities.ts"
+        "functions/drawEntities.ts",
+        "interfaces/ICollision.ts"
     ]
 }

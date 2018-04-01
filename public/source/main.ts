@@ -13,11 +13,11 @@ let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
         frameMilliSecond: <number> 12, // 16.6666666666666667 -> would be 60 frames/sec (12 is less choppy)
         keyLeft: <boolean> false,
         keyRight: <boolean> false,
-        entities: new Array <BaseEntity>(),
-        player: new Paddle(350, 1000, 20, 100)
+        entities: new Array <BaseEntity>()
     }
 
-g.entities.push(g.player);
+let player = new Paddle(350, 1000, 20, 100, g.canvasW);
+g.entities.push(player);
 let block1 = new Block(500, 500, 50, 50);
 g.entities.push(block1);
 
@@ -43,5 +43,5 @@ window.onkeyup = function(e) {
 // main loop
 setInterval(function(){
     drawEntities(ctx, g.entities, g.canvasW, g.canvasH);
-    g.player.update(g.keyLeft, g.keyRight);
+    player.update(g.keyLeft, g.keyRight);
 }, g.frameMilliSecond);

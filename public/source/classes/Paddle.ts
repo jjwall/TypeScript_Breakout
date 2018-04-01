@@ -3,12 +3,14 @@ import { BaseEntity } from './BaseEntity';
 export class Paddle extends BaseEntity
 {
     currentVel: number;
+    static canvasW: number;
     static maxVel: number = 8;
     static accl: number = .4;
-    constructor(public xpos: number, 
-                public ypos: number, 
-                public height: number, 
-                public width: number, 
+    constructor(public xpos: number,
+                public ypos: number,
+                public height: number,
+                public width: number,
+                public canvasW: number,
                 public currentVelocity: number = 0) 
     {
         super(xpos, ypos, height, width);
@@ -20,14 +22,22 @@ export class Paddle extends BaseEntity
             case "left":
             if (currentVelocity > -maxVelocity) {
                 this.currentVel -= Paddle.accl;
-                console.log(this.currentVel);
             }
+            if (this.currentVel > 0 && this.x >= (this.canvasW - this.w)) {
+                this.currentVel -= this.currentVel;
+            }
+            if (this.x >= 0)
+                this.x += this.currentVel;
             break;
             case "right":
             if (currentVelocity < maxVelocity) {
                 this.currentVel += Paddle.accl;
-                console.log(this.currentVel);
             }
+            if (this.currentVel < 0 && this.x <= 0) {
+                this.currentVel -= this.currentVel;
+            }
+            if (this.x <= (this.canvasW - this.w))
+                this.x += this.currentVel;
             break;
             case "aimless":
             if (currentVelocity < 0) {
@@ -36,9 +46,11 @@ export class Paddle extends BaseEntity
             else if (currentVelocity > 0) {
                 this.currentVel -= Paddle.accl;
             }
+            if (this.x >= 0 && this.x <= (this.canvasW - this.w))
+                this.x += this.currentVel;
             break;
         }
-        this.x += this.currentVel;
+            //console.log(this.w);
     }
     update(keyLeft: boolean, keyRight: boolean) : void
     {

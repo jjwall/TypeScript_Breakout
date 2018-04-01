@@ -7,10 +7,10 @@ define(["require", "exports", "./classes/Paddle", "./classes/Block", "./function
         frameMilliSecond: 12,
         keyLeft: false,
         keyRight: false,
-        entities: new Array(),
-        player: new Paddle_1.Paddle(350, 1000, 20, 100)
+        entities: new Array()
     };
-    g.entities.push(g.player);
+    var player = new Paddle_1.Paddle(350, 1000, 20, 100, g.canvasW);
+    g.entities.push(player);
     var block1 = new Block_1.Block(500, 500, 50, 50);
     g.entities.push(block1);
     window.onkeydown = function (e) {
@@ -31,6 +31,6 @@ define(["require", "exports", "./classes/Paddle", "./classes/Block", "./function
     };
     setInterval(function () {
         drawEntities_1.drawEntities(ctx, g.entities, g.canvasW, g.canvasH);
-        g.player.update(g.keyLeft, g.keyRight);
+        player.update(g.keyLeft, g.keyRight);
     }, g.frameMilliSecond);
 });
