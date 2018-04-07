@@ -1,4 +1,4 @@
-define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/Block", "./functions/drawEntities"], function (require, exports, Paddle_1, Ball_1, Block_1, drawEntities_1) {
+define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/Block", "./functions/drawEntities", "./functions/renderBlocks"], function (require, exports, Paddle_1, Ball_1, Block_1, drawEntities_1, renderBlocks_1) {
     "use strict";
     exports.__esModule = true;
     var canvas = document.getElementById('gameScreen'), ctx = canvas.getContext('2d'), g = {
@@ -13,9 +13,16 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     var player = new Paddle_1.Paddle(350, 1000, 20, 100, g.canvasW);
     g.entities.push(player);
     g.collidingEntities.push(player);
-    var block1 = new Block_1.Block(300, 500, 400, 400);
-    g.entities.push(block1);
-    g.collidingEntities.push(block1);
+    var blocks = renderBlocks_1.renderBlocks();
+    var spacing = 0;
+    for (var x = 0; x < blocks.length; x++) {
+        spacing += 80;
+        if (blocks[x]) {
+            var block = new Block_1.Block(spacing, 200, 30, 70);
+            g.entities.push(block);
+            g.collidingEntities.push(block);
+        }
+    }
     var ball = new Ball_1.Ball(600, 300, 20, 20, g.canvasH, g.canvasW);
     g.entities.push(ball);
     window.onkeydown = function (e) {

@@ -4,6 +4,7 @@ import { Ball } from './classes/Ball';
 import { Block } from './classes/Block';
 import { BaseEntity } from './classes/BaseEntity';
 import { drawEntities } from './functions/drawEntities';
+import { renderBlocks } from './functions/renderBlocks';
 import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
@@ -28,9 +29,16 @@ let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
 let player = new Paddle(350, 1000, 20, 100, g.canvasW);
 g.entities.push(player);
 g.collidingEntities.push(player);
-let block1 = new Block(300, 500, 400, 400);
-g.entities.push(block1);
-g.collidingEntities.push(block1);
+let blocks = <Array<boolean>>renderBlocks();
+let spacing = <number> 0;
+for (let x: number = 0; x < blocks.length; x++) {
+    spacing += 80;
+    if (blocks[x]) {
+        let block = new Block(spacing, 200, 30, 70);
+        g.entities.push(block);
+        g.collidingEntities.push(block);
+    }
+}
 let ball = new Ball(600, 300, 20, 20, g.canvasH, g.canvasW);
 g.entities.push(ball);
 
@@ -59,7 +67,6 @@ setInterval(function(){
     player.update(g.keyLeft, g.keyRight);
     ball.collide(g.collidingEntities);
     ball.update();
-
     g.entities = g.entities.filter(entity => !entity.isDead);
     g.collidingEntities = g.collidingEntities.filter(entity => !entity.isDead);
 }, g.frameMilliSecond);

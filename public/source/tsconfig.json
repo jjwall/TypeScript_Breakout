@@ -13,6 +13,7 @@
         "classes/Ball.ts",
         "classes/Block.ts",
         "functions/drawEntities.ts",
+        "functions/renderBlocks.ts",
         "interfaces/ICollision.ts"
     ]
 }
