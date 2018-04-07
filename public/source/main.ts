@@ -4,6 +4,13 @@ import { Ball } from './classes/Ball';
 import { Block } from './classes/Block';
 import { BaseEntity } from './classes/BaseEntity';
 import { drawEntities } from './functions/drawEntities';
+import { ICollision } from './interfaces/ICollision';
+
+// TO DO:
+// 1. FIX RIGHT SIDE COLLISION
+// 2. Implement ICollision for Paddle and Block
+// 3. Write algorithm for generating random blocks
+// 4. Make level system
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -24,7 +31,7 @@ g.collidingEntities.push(player);
 let block1 = new Block(300, 500, 400, 400);
 g.entities.push(block1);
 g.collidingEntities.push(block1);
-let ball = new Ball(400, 300, 20, 20, g.canvasH, g.canvasW);
+let ball = new Ball(600, 300, 20, 20, g.canvasH, g.canvasW);
 g.entities.push(ball);
 
 // keyboard controls
@@ -52,4 +59,7 @@ setInterval(function(){
     player.update(g.keyLeft, g.keyRight);
     ball.collide(g.collidingEntities);
     ball.update();
+
+    g.entities = g.entities.filter(entity => !entity.isDead);
+    g.collidingEntities = g.collidingEntities.filter(entity => !entity.isDead);
 }, g.frameMilliSecond);

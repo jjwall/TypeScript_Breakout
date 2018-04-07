@@ -70,6 +70,31 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                 this.accelerate(this.currentVel, Paddle.maxVel, "aimless");
             }
         };
+        Paddle.prototype.onHitTopAndBottom = function (ballXVel, entityXpos, entityWidth, ballXpos, ballWidth) {
+            var halfWidth = (entityXpos + (entityWidth / 2));
+            var multiple = 10;
+            if (ballXpos + ballWidth < halfWidth) {
+                var ratio = ((halfWidth - ballXpos) / 100);
+                if (ballXVel > 0) {
+                    return -multiple * ratio;
+                }
+                else {
+                    return multiple * ratio;
+                }
+            }
+            else if (ballXpos > halfWidth) {
+                var ratio = ((ballXpos - halfWidth) / 100);
+                if (ballXVel < 0) {
+                    return multiple * ratio;
+                }
+                else {
+                    return -multiple * ratio;
+                }
+            }
+            else
+                return 0;
+        };
+        Paddle.prototype.onHit = function () { };
         Paddle.maxVel = 8;
         Paddle.accl = .4;
         return Paddle;

@@ -1,6 +1,7 @@
 import { BaseEntity } from './BaseEntity';
+import { ICollision } from '../interfaces/ICollision';
 
-export class Paddle extends BaseEntity
+export class Paddle extends BaseEntity //implements ICollision
 {
     currentVel: number;
     static canvasW: number;
@@ -64,4 +65,32 @@ export class Paddle extends BaseEntity
             this.accelerate(this.currentVel, Paddle.maxVel, "aimless");
         }
     }
+    onHitTopAndBottom(ballXVel: number, entityXpos: number, entityWidth: number, ballXpos: number, ballWidth: number): number
+    {
+        let halfWidth = <number> (entityXpos + (entityWidth / 2));
+        let multiple = 10;
+        // i.e. left half of the entity
+        if (ballXpos + ballWidth < halfWidth) {
+            let ratio = <number> ((halfWidth - ballXpos) / 100);
+            if (ballXVel > 0) {
+                return -multiple * ratio;
+            }
+            else {
+                return multiple * ratio;
+            }
+        }
+        // i.e. right half of the entity
+        else if (ballXpos > halfWidth) {
+            let ratio = <number> ((ballXpos - halfWidth) / 100);
+            if (ballXVel < 0) {
+                return multiple * ratio;
+            }
+            else {
+                return -multiple * ratio;
+            }
+        }
+        else 
+            return 0;
+    }
+    onHit():void {}
 }

@@ -16,7 +16,7 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     var block1 = new Block_1.Block(300, 500, 400, 400);
     g.entities.push(block1);
     g.collidingEntities.push(block1);
-    var ball = new Ball_1.Ball(400, 300, 20, 20, g.canvasH, g.canvasW);
+    var ball = new Ball_1.Ball(600, 300, 20, 20, g.canvasH, g.canvasW);
     g.entities.push(ball);
     window.onkeydown = function (e) {
         if (e.keyCode === 37) {
@@ -39,5 +39,7 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
         player.update(g.keyLeft, g.keyRight);
         ball.collide(g.collidingEntities);
         ball.update();
+        g.entities = g.entities.filter(function (entity) { return !entity.isDead; });
+        g.collidingEntities = g.collidingEntities.filter(function (entity) { return !entity.isDead; });
     }, g.frameMilliSecond);
 });

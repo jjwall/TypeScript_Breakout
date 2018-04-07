@@ -1,6 +1,7 @@
-import { BaseEntity } from "../classes/BaseEntity";
+import { Ball } from "../classes/Ball";
 
 export interface ICollision {
-    drawHitBox(x: number, y: number, h: number, w: number): void;
-    onHit(collider: BaseEntity): void;
+    //onHitSides(ballYVel: number, entityXpos: number, entityWidth: number, ballXpos: number, ballWidth: number): number;
+    onHitTopAndBottom(ballXVel: number, entityXpos: number, entityWidth: number, ballXpos: number, ballWidth: number): number
+    onHitSides(ballYVel: number, entityYpos: number, entityHeight: number, ballYpos: number, ballHeight: number): number;
 }

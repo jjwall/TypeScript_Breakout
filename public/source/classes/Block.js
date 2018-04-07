@@ -21,6 +21,12 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
             _this.width = width;
             return _this;
         }
+        Block.prototype.onHitTopAndBottom = function (ballXVel, entityXpos, entityWidth, ballXpos, ballWidth) {
+            return ballXVel;
+        };
+        Block.prototype.onHit = function () {
+            this.isDead = true;
+        };
         return Block;
     }(BaseEntity_1.BaseEntity));
     exports.Block = Block;

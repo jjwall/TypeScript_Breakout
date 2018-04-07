@@ -45,34 +45,6 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
             this.x += this.currentVelX;
             this.y += this.currentVelY;
         };
-        Ball.prototype.ballYVal = function (entityYPos, entityHeight, ballYPos, ballHeight) {
-            console.log("hiY");
-            var halfHeight = (entityYPos + (entityHeight / 2));
-            if (ballYPos < halfHeight) {
-                var ratio = ((halfHeight - ballYPos) / 100);
-                this.currentVelY = -3 * ratio;
-            }
-            else if (ballYPos > halfHeight) {
-                var ratio = ((ballYPos - halfHeight) / 100);
-                this.currentVelY = 3 * ratio;
-            }
-            else
-                this.currentVelocityY = 0;
-        };
-        Ball.prototype.ballXVal = function (entityXPos, entityWidth, ballXPos, ballWidth) {
-            console.log("hiX");
-            var halfWidth = (entityXPos + (entityWidth / 2));
-            if (ballXPos < halfWidth) {
-                var ratio = ((halfWidth - ballWidth) / 100);
-                this.currentVelX = -3 * ratio;
-            }
-            else if (ballXPos > halfWidth) {
-                var ratio = ((ballXPos - halfWidth) / 100);
-                this.currentVelX = 3 * ratio;
-            }
-            else
-                this.currentVelocityX = 0;
-        };
         Ball.prototype.collide = function (entities) {
             var _this = this;
             entities.forEach(function (entity) {
@@ -82,17 +54,22 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                     _this.h + _this.y >= entity.y) {
                     if ((_this.y <= entity.y + entity.h || _this.y + _this.h >= entity.y)
                         && _this.x > entity.x && _this.x < entity.x + entity.w) {
+                        _this.currentVelX = entity.onHitTopAndBottom(_this.currentVelX, entity.x, entity.w, _this.x, _this.w);
                         _this.currentVelY *= -1;
-                        _this.ballXVal(entity.x, entity.w, _this.x, _this.w);
+                        entity.onHit();
                     }
                     if ((_this.x + _this.w >= entity.x || _this.x <= entity.x + entity.w)
                         && _this.y > entity.y && _this.y < entity.y + entity.h) {
                         _this.currentVelX *= -1;
-                        _this.ballYVal(entity.y, entity.h, _this.y, _this.h);
+                        entity.onHit();
                     }
                 }
             });
         };
+        Ball.prototype.onHitTopAndBottom = function (ballXVel, entityXpos, entityWidth, ballXpos, ballWidth) {
+            return 0;
+        };
+        Ball.prototype.onHit = function () { };
         return Ball;
     }(BaseEntity_1.BaseEntity));
     exports.Ball = Ball;
