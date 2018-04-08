@@ -43,15 +43,21 @@ export class Paddle extends BaseEntity //implements ICollision
             case "aimless":
             if (currentVelocity < 0) {
                 this.currentVel += Paddle.accl;
+                if (this.currentVel > -.1) {
+                    this.currentVel = 0;
+                }
             }
             else if (currentVelocity > 0) {
                 this.currentVel -= Paddle.accl;
+                if (this.currentVel < .1) {
+                    this.currentVel = 0;
+                }
             }
-            if (this.x >= 0 && this.x <= (this.canvasW - this.w))
+            if (this.x >= 0 && this.x <= (this.canvasW - this.w)) {
                 this.x += this.currentVel;
+            }
             break;
         }
-            //console.log(this.w);
     }
     update(keyLeft: boolean, keyRight: boolean) : void
     {
@@ -72,22 +78,12 @@ export class Paddle extends BaseEntity //implements ICollision
         // i.e. left half of the entity
         if (ballXpos + ballWidth < halfWidth) {
             let ratio = <number> ((halfWidth - ballXpos) / 100);
-            if (ballXVel > 0) {
-                return -multiple * ratio;
-            }
-            else {
-                return multiple * ratio;
-            }
+            return -multiple * ratio;
         }
         // i.e. right half of the entity
         else if (ballXpos > halfWidth) {
             let ratio = <number> ((ballXpos - halfWidth) / 100);
-            if (ballXVel < 0) {
-                return multiple * ratio;
-            }
-            else {
-                return -multiple * ratio;
-            }
+            return multiple * ratio;
         }
         else 
             return 0;

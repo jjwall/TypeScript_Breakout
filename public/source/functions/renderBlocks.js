@@ -14,7 +14,16 @@ define(["require", "exports"], function (require, exports) {
                 partialPattern1.push(false);
             }
         }
-        var partialPattern2 = partialPattern1;
+        var numberOfTruths = 0;
+        partialPattern1.forEach(function (element) {
+            if (element) {
+                numberOfTruths++;
+            }
+        });
+        if (numberOfTruths == 0) {
+            return renderBlocks();
+        }
+        var partialPattern2 = partialPattern1.slice();
         partialPattern2.reverse();
         var totalPattern = partialPattern1.concat(partialPattern2);
         return totalPattern;

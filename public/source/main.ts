@@ -8,10 +8,11 @@ import { renderBlocks } from './functions/renderBlocks';
 import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
-// 1. FIX RIGHT SIDE COLLISION
+// 1. Fix collision for paddle
 // 2. Implement ICollision for Paddle and Block
 // 3. Write algorithm for generating random blocks
 // 4. Make level system
+// 5. Add collision manifold system
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -27,20 +28,31 @@ let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
     }
 
 let player = new Paddle(350, 1000, 20, 100, g.canvasW);
-g.entities.push(player);
-g.collidingEntities.push(player);
-let blocks = <Array<boolean>>renderBlocks();
-let spacing = <number> 0;
-for (let x: number = 0; x < blocks.length; x++) {
-    spacing += 80;
-    if (blocks[x]) {
-        let block = new Block(spacing, 200, 30, 70);
-        g.entities.push(block);
-        g.collidingEntities.push(block);
-    }
-}
 let ball = new Ball(600, 300, 20, 20, g.canvasH, g.canvasW);
 g.entities.push(ball);
+g.entities.push(player);
+g.collidingEntities.push(player);
+
+function setUpLevel():void {;
+    let verticalSpacing = <number> 0;
+    let horizontalSpacing = <number> 0;
+    for (let y: number = 0; y < 10; y++) {
+        let blocks = <Array<boolean>>renderBlocks();
+        verticalSpacing += 50;
+        horizontalSpacing = 0;
+        for (let x: number = 0; x < blocks.length; x++) {
+            horizontalSpacing += 30;
+            if (blocks[x]) {
+                let block = new Block(horizontalSpacing, verticalSpacing, 20, 60);
+                g.entities.push(block);
+                g.collidingEntities.push(block);
+            }
+            horizontalSpacing += 45;
+        }
+    }
+}
+
+setUpLevel();
 
 // keyboard controls
 window.onkeydown = function(e) {

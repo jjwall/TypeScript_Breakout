@@ -14,9 +14,16 @@ export function renderBlocks():boolean[] {
             partialPattern1.push(false);
         }
     }
-    // -> revist
-    //if (!partialPattern1.includes(true))
-    let partialPattern2 = partialPattern1;
+    let numberOfTruths = <number> 0;
+    partialPattern1.forEach(element => {
+        if (element) {
+            numberOfTruths++;
+        }
+    });
+    if (numberOfTruths == 0) {
+        return renderBlocks();
+    }
+    let partialPattern2 = partialPattern1.slice();
     partialPattern2.reverse();
     let totalPattern = partialPattern1.concat(partialPattern2);
 

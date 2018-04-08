@@ -50,12 +50,19 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                 case "aimless":
                     if (currentVelocity < 0) {
                         this.currentVel += Paddle.accl;
+                        if (this.currentVel > -.1) {
+                            this.currentVel = 0;
+                        }
                     }
                     else if (currentVelocity > 0) {
                         this.currentVel -= Paddle.accl;
+                        if (this.currentVel < .1) {
+                            this.currentVel = 0;
+                        }
                     }
-                    if (this.x >= 0 && this.x <= (this.canvasW - this.w))
+                    if (this.x >= 0 && this.x <= (this.canvasW - this.w)) {
                         this.x += this.currentVel;
+                    }
                     break;
             }
         };
@@ -75,21 +82,11 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
             var multiple = 10;
             if (ballXpos + ballWidth < halfWidth) {
                 var ratio = ((halfWidth - ballXpos) / 100);
-                if (ballXVel > 0) {
-                    return -multiple * ratio;
-                }
-                else {
-                    return multiple * ratio;
-                }
+                return -multiple * ratio;
             }
             else if (ballXpos > halfWidth) {
                 var ratio = ((ballXpos - halfWidth) / 100);
-                if (ballXVel < 0) {
-                    return multiple * ratio;
-                }
-                else {
-                    return -multiple * ratio;
-                }
+                return multiple * ratio;
             }
             else
                 return 0;
