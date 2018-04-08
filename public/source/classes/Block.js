@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./BaseEntity"], function (require, exports, BaseEntity_1) {
+define(["require", "exports", "./BaseEntity", "../main"], function (require, exports, BaseEntity_1, main_1) {
     "use strict";
     exports.__esModule = true;
     var Block = (function (_super) {
@@ -26,6 +26,7 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
         };
         Block.prototype.onHit = function () {
             this.isDead = true;
+            main_1.addToScoreAndCheckWinState();
         };
         return Block;
     }(BaseEntity_1.BaseEntity));

@@ -1,4 +1,5 @@
 import { BaseEntity } from './BaseEntity';
+import { addToScoreAndCheckWinState } from '../main';
 //import { ICollision } from '../interfaces/ICollision';
 
 export class Block extends BaseEntity// implements ICollision
@@ -20,5 +21,6 @@ export class Block extends BaseEntity// implements ICollision
     }
     onHit():void {
         this.isDead = true;
+        addToScoreAndCheckWinState();
     }
 }

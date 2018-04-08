@@ -1,4 +1,5 @@
 import { BaseEntity } from './BaseEntity';
+import { loseLifeResetAndCheckLoseState } from './../main';
 //import { ICollision } from '../interfaces/ICollision';
 
 export class Ball extends BaseEntity
@@ -13,7 +14,7 @@ export class Ball extends BaseEntity
                 public width: number,
                 public canvasH: number,
                 public canvasW: number,
-                public currentVelocityX: number = 5,
+                public currentVelocityX: number = 0,
                 public currentVelocityY: number = 5)
     {
         super(xpos, ypos, height, width);
@@ -29,8 +30,7 @@ export class Ball extends BaseEntity
             this.currentVelX *= -1;
         }
         if (this.y >= this.canvasH - this.h) {
-            // lose a life
-            this.currentVelY *= -1;
+            loseLifeResetAndCheckLoseState();
         }
         if (this.y <=0) {
             this.currentVelY *= -1;

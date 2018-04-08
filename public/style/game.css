@@ -6,16 +6,19 @@ body, html {
     margin: auto;
     width: 600px;
 }
+
 .sidebar { 
     width: 850px;
     position: fixed;
     height: 100%;
 }
+
 .logo {
     height: 50%;
     position: relative;
     top: 0;
 }
+
 #gameScreen {
     position:absolute;
 }
@@ -26,4 +29,29 @@ canvas {
     margin-right: auto;
 	width: 70%;
 	background-color: black;
+}
+
+#scoreText, #scoreValue, #livesText, #livesValue {
+    color: white;
+    position: absolute;
+}
+
+#scoreText {
+    top: 15px;
+    left: 10px;
+}
+
+#livesText {
+    top: 35px;
+    left: 10px;
+}
+
+#scoreValue {
+    top: 15px;
+    left: 55px;
+}
+
+#livesValue {
+    top: 35px;
+    left: 55px;
 }

@@ -8,13 +8,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./BaseEntity"], function (require, exports, BaseEntity_1) {
+define(["require", "exports", "./BaseEntity", "./../main"], function (require, exports, BaseEntity_1, main_1) {
     "use strict";
     exports.__esModule = true;
     var Ball = (function (_super) {
         __extends(Ball, _super);
         function Ball(xpos, ypos, height, width, canvasH, canvasW, currentVelocityX, currentVelocityY) {
-            if (currentVelocityX === void 0) { currentVelocityX = 5; }
+            if (currentVelocityX === void 0) { currentVelocityX = 0; }
             if (currentVelocityY === void 0) { currentVelocityY = 5; }
             var _this = _super.call(this, xpos, ypos, height, width) || this;
             _this.xpos = xpos;
@@ -37,7 +37,7 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                 this.currentVelX *= -1;
             }
             if (this.y >= this.canvasH - this.h) {
-                this.currentVelY *= -1;
+                main_1.loseLifeResetAndCheckLoseState();
             }
             if (this.y <= 0) {
                 this.currentVelY *= -1;
