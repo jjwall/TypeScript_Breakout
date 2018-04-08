@@ -15,7 +15,7 @@ define(["require", "exports", "./BaseEntity", "./../main"], function (require, e
         __extends(Ball, _super);
         function Ball(xpos, ypos, height, width, canvasH, canvasW, currentVelocityX, currentVelocityY) {
             if (currentVelocityX === void 0) { currentVelocityX = 0; }
-            if (currentVelocityY === void 0) { currentVelocityY = 5; }
+            if (currentVelocityY === void 0) { currentVelocityY = 0; }
             var _this = _super.call(this, xpos, ypos, height, width) || this;
             _this.xpos = xpos;
             _this.ypos = ypos;

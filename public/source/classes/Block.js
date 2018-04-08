@@ -19,15 +19,20 @@ define(["require", "exports", "./BaseEntity", "../main"], function (require, exp
             _this.ypos = ypos;
             _this.height = height;
             _this.width = width;
+            Block.total++;
             return _this;
         }
         Block.prototype.onHitTopAndBottom = function (ballXVel, entityXpos, entityWidth, ballXpos, ballWidth) {
             return ballXVel;
         };
         Block.prototype.onHit = function () {
+            if (!this.isDead) {
+                Block.total--;
+            }
             this.isDead = true;
             main_1.addToScoreAndCheckWinState();
         };
+        Block.total = 0;
         return Block;
     }(BaseEntity_1.BaseEntity));
     exports.Block = Block;

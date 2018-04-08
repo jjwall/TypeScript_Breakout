@@ -15,7 +15,7 @@ export class Ball extends BaseEntity
                 public canvasH: number,
                 public canvasW: number,
                 public currentVelocityX: number = 0,
-                public currentVelocityY: number = 5)
+                public currentVelocityY: number = 0)
     {
         super(xpos, ypos, height, width);
         this.currentVelX = currentVelocityX;
@@ -53,12 +53,14 @@ export class Ball extends BaseEntity
                     this.currentVelY *= -1;
                     entity.onHit();
                 }
+                // vv this needs to be fixed vv
                 if ((this.x + this.w >= entity.x || this.x <= entity.x + entity.w)
                     && this.y + this.h > entity.y && this.y < entity.y + entity.h)
                 {
                     this.currentVelX *= -1;
                     entity.onHit();
                 }
+                // ^^ fix this hack ^^
             }
         });
     }

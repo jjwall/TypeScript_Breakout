@@ -7,12 +7,12 @@ import { renderBlocks } from './functions/renderBlocks';
 //import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
-// 1. Flesh out lose state with reset button appearing
-// 2. Add start game button
-// 3. Increment level (make sure levels work properly)
-// 4. Add collision manifold subsystem to AABB system
-// 5. Add menu system
-// 6. Add high score system (Firebase? SQL? Mongo?)
+// 1. Add collision manifold subsystem to AABB system
+// 2. Add high score system (Firebase? SQL? Mongo?)
+// 3. Add mobile controls
+// 4. fix left / right collision mechanics
+// 5. deploy to heroku
+// 6. write up ReadMe
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -27,23 +27,31 @@ let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
         collidingEntities: new Array <BaseEntity>(),
         score: <HTMLElement> document.getElementById('scoreValue'),
         lives: <HTMLElement> document.getElementById('livesValue'),
+        level: <HTMLElement> document.getElementById('levelValue'),
+        startButton: <HTMLElement> document.getElementById('startButton'),
         scoreValue: <number> 0,
         livesValue: <number> 3,
-        totalBlocks: <number> 0
+        levelValue: <number> 1
     }
 
+// set up player, ball and ui
 let player = new Paddle(350, 1000, 20, 100, g.canvasW);
-let ball = new Ball(400, 600, 20, 20, g.canvasH, g.canvasW);
+let ball = new Ball(395, 600, 20, 20, g.canvasH, g.canvasW);
 g.entities.push(ball);
 g.entities.push(player);
 g.collidingEntities.push(player);
 g.score.innerHTML = g.scoreValue.toString();
 g.lives.innerHTML = g.livesValue.toString();
+g.level.innerHTML = g.levelValue.toString();
+
+g.startButton.onclick = function() {
+    startGame();
+}
 
 function setUpLevel():void {
     let verticalSpacing = <number> 0;
     let horizontalSpacing = <number> 0;
-    for (let y: number = 0; y < 1; y++) {
+    for (let y: number = 0; y < 10; y++) {
         let blocks = <Array<boolean>>renderBlocks();
         verticalSpacing += 50;
         horizontalSpacing = 0;
@@ -53,7 +61,6 @@ function setUpLevel():void {
                 let block = new Block(horizontalSpacing, verticalSpacing, 20, 60);
                 g.entities.push(block);
                 g.collidingEntities.push(block);
-                g.totalBlocks++;
             }
             horizontalSpacing += 45;
         }
@@ -68,7 +75,7 @@ export function loseLifeResetAndCheckLoseState():void {
     ball.currentVelX = 0;
     ball.currentVelY = 0;
     if (g.livesValue === 0) {
-        return console.log("end game");
+        return loseState();
     }
     setTimeout(function(){
         ball.currentVelY = 5;
@@ -78,30 +85,48 @@ export function loseLifeResetAndCheckLoseState():void {
 export function addToScoreAndCheckWinState():void {
     g.scoreValue += 10;
     g.score.innerHTML = g.scoreValue.toString();
-    g.totalBlocks--;
-    if (g.totalBlocks === 0) {
+    if (Block.total === 0) {
         nextLevel();
     }
 }
 
 function nextLevel():void {
-    g.totalBlocks = 0;
     setUpLevel();
-    console.log(g.totalBlocks);
-    ball.x = 400;
+    ball.x = 395;
     ball.y = 600;
     ball.currentVelX = 0;
     ball.currentVelY = 0;
+    g.levelValue++;
+    g.level.innerHTML = g.levelValue.toString();
     setTimeout(function(){
         ball.currentVelY = 5;
     },3000);
 }
 
 function loseState():void {
-    alert("You lose! Play again?");
+    // need add more like "You lost" message
+    g.startButton.style.display = 'block';
 }
 
-setUpLevel();
+function startGame():void {
+    Block.total = 0;
+    g.entities = <BaseEntity[]>[];
+    g.collidingEntities = <BaseEntity[]>[];
+    g.entities.push(ball);
+    g.entities.push(player);
+    g.collidingEntities.push(player);
+    setUpLevel();
+    g.startButton.style.display = 'none';
+    g.scoreValue = 0;
+    g.livesValue = 3;
+    g.levelValue = 1;
+    g.score.innerHTML = g.scoreValue.toString();
+    g.lives.innerHTML = g.livesValue.toString();
+    g.level.innerHTML = g.levelValue.toString();
+    ball.x = 395;
+    ball.y = 600;
+    ball.currentVelY = 5;
+}
 
 // keyboard controls
 window.onkeydown = function(e) {

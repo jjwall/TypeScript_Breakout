@@ -31,7 +31,7 @@ canvas {
 	background-color: black;
 }
 
-#scoreText, #scoreValue, #livesText, #livesValue {
+#scoreText, #scoreValue, #livesText, #livesValue, #levelText, #levelValue {
     color: white;
     position: absolute;
 }
@@ -46,6 +46,11 @@ canvas {
     left: 10px;
 }
 
+#levelText {
+    top: 55px;
+    left: 10px;
+}
+
 #scoreValue {
     top: 15px;
     left: 55px;
@@ -54,4 +59,23 @@ canvas {
 #livesValue {
     top: 35px;
     left: 55px;
+}
+
+#levelValue {
+    top: 55px;
+    left: 55px;
+}
+
+#startButton {
+    position: absolute;
+    left: 280px;
+    top: 400px;
+    /* background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; */
 }

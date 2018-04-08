@@ -11,21 +11,27 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
         collidingEntities: new Array(),
         score: document.getElementById('scoreValue'),
         lives: document.getElementById('livesValue'),
+        level: document.getElementById('levelValue'),
+        startButton: document.getElementById('startButton'),
         scoreValue: 0,
         livesValue: 3,
-        totalBlocks: 0
+        levelValue: 1
     };
     var player = new Paddle_1.Paddle(350, 1000, 20, 100, g.canvasW);
-    var ball = new Ball_1.Ball(400, 600, 20, 20, g.canvasH, g.canvasW);
+    var ball = new Ball_1.Ball(395, 600, 20, 20, g.canvasH, g.canvasW);
     g.entities.push(ball);
     g.entities.push(player);
     g.collidingEntities.push(player);
     g.score.innerHTML = g.scoreValue.toString();
     g.lives.innerHTML = g.livesValue.toString();
+    g.level.innerHTML = g.levelValue.toString();
+    g.startButton.onclick = function () {
+        startGame();
+    };
     function setUpLevel() {
         var verticalSpacing = 0;
         var horizontalSpacing = 0;
-        for (var y = 0; y < 1; y++) {
+        for (var y = 0; y < 10; y++) {
             var blocks = renderBlocks_1.renderBlocks();
             verticalSpacing += 50;
             horizontalSpacing = 0;
@@ -35,7 +41,6 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
                     var block = new Block_1.Block(horizontalSpacing, verticalSpacing, 20, 60);
                     g.entities.push(block);
                     g.collidingEntities.push(block);
-                    g.totalBlocks++;
                 }
                 horizontalSpacing += 45;
             }
@@ -49,7 +54,7 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
         ball.currentVelX = 0;
         ball.currentVelY = 0;
         if (g.livesValue === 0) {
-            return console.log("end game");
+            return loseState();
         }
         setTimeout(function () {
             ball.currentVelY = 5;
@@ -59,29 +64,45 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     function addToScoreAndCheckWinState() {
         g.scoreValue += 10;
         g.score.innerHTML = g.scoreValue.toString();
-        g.totalBlocks--;
-        if (g.totalBlocks === 0) {
+        if (Block_1.Block.total === 0) {
             nextLevel();
         }
     }
     exports.addToScoreAndCheckWinState = addToScoreAndCheckWinState;
     function nextLevel() {
-        g.totalBlocks = 0;
         setUpLevel();
-        console.log(g.totalBlocks);
-        ball.x = 400;
+        ball.x = 395;
         ball.y = 600;
         ball.currentVelX = 0;
         ball.currentVelY = 0;
+        g.levelValue++;
+        g.level.innerHTML = g.levelValue.toString();
         setTimeout(function () {
             ball.currentVelY = 5;
         }, 3000);
     }
     function loseState() {
-        alert("You lose! Play again?");
+        g.startButton.style.display = 'block';
     }
-    setUpLevel();
-    console.log(g.totalBlocks);
+    function startGame() {
+        Block_1.Block.total = 0;
+        g.entities = [];
+        g.collidingEntities = [];
+        g.entities.push(ball);
+        g.entities.push(player);
+        g.collidingEntities.push(player);
+        setUpLevel();
+        g.startButton.style.display = 'none';
+        g.scoreValue = 0;
+        g.livesValue = 3;
+        g.levelValue = 1;
+        g.score.innerHTML = g.scoreValue.toString();
+        g.lives.innerHTML = g.livesValue.toString();
+        g.level.innerHTML = g.levelValue.toString();
+        ball.x = 395;
+        ball.y = 600;
+        ball.currentVelY = 5;
+    }
     window.onkeydown = function (e) {
         if (e.keyCode === 37) {
             g.keyLeft = true;
