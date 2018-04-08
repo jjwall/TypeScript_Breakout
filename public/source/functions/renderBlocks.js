@@ -20,7 +20,7 @@ define(["require", "exports"], function (require, exports) {
                 numberOfTruths++;
             }
         });
-        if (numberOfTruths == 0) {
+        if (numberOfTruths === 0) {
             return renderBlocks();
         }
         var partialPattern2 = partialPattern1.slice();

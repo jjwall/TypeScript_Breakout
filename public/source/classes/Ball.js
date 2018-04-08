@@ -53,13 +53,13 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
                     && _this.y <= entity.y + entity.h &&
                     _this.h + _this.y >= entity.y) {
                     if ((_this.y <= entity.y + entity.h || _this.y + _this.h >= entity.y)
-                        && _this.x > entity.x && _this.x < entity.x + entity.w) {
+                        && _this.x + _this.w > entity.x && _this.x < entity.x + entity.w) {
                         _this.currentVelX = entity.onHitTopAndBottom(_this.currentVelX, entity.x, entity.w, _this.x, _this.w);
                         _this.currentVelY *= -1;
                         entity.onHit();
                     }
                     if ((_this.x + _this.w >= entity.x || _this.x <= entity.x + entity.w)
-                        && _this.y > entity.y && _this.y < entity.y + entity.h) {
+                        && _this.y + _this.h > entity.y && _this.y < entity.y + entity.h) {
                         _this.currentVelX *= -1;
                         entity.onHit();
                     }

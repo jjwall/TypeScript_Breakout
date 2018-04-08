@@ -1,5 +1,5 @@
 import { BaseEntity } from './BaseEntity';
-import { ICollision } from '../interfaces/ICollision';
+//import { ICollision } from '../interfaces/ICollision';
 
 export class Ball extends BaseEntity
 {
@@ -38,39 +38,7 @@ export class Ball extends BaseEntity
         this.x += this.currentVelX;
         this.y += this.currentVelY;
     }
-    // ballYVal(entityYPos: number, entityHeight: number, ballYPos: number, ballHeight: number) : void {
-    //     console.log("hiY");
-    //     let halfHeight = <number> (entityYPos + (entityHeight / 2));
-    //     // i.e. top half of the entity
-    //     if (ballYPos < halfHeight) {
-    //         let ratio = <number> ((halfHeight - ballYPos) / 100);
-    //         this.currentVelY = -3 * ratio;
-    //     }
-    //     // i.e. bottom half of the entity
-    //     else if (ballYPos > halfHeight) {
-    //         let ratio = <number> ((ballYPos - halfHeight) / 100);
-    //         this.currentVelY = 3 * ratio;
-    //         }
-    //     else 
-    //         this.currentVelocityY = 0;
-    // }
-    // ballXVal(entityXPos: number, entityWidth: number, ballXPos: number, ballWidth: number) : void {
-    //     console.log("hiX");
-    //     let halfWidth = <number> (entityXPos + (entityWidth / 2));
-    //     // i.e. left half of the entity
-    //     if (ballXPos < halfWidth) {
-    //         let ratio = <number> ((halfWidth - ballWidth) / 100);
-    //         this.currentVelX = -3 * ratio;
-    //     }
-    //     // i.e. right half of the entity
-    //     else if (ballXPos > halfWidth) {
-    //         let ratio = <number> ((ballXPos - halfWidth) / 100);
-    //         this.currentVelX = 3 * ratio;
-    //         }
-    //     else 
-    //         this.currentVelocityX = 0;
-    // }
-    collide(entities: BaseEntity[]) : void
+    collide(entities: BaseEntity[]): void
     {
         entities.forEach(entity => {
             if (this.x <= entity.x + entity.w &&
@@ -79,19 +47,17 @@ export class Ball extends BaseEntity
                 this.h + this.y >= entity.y)
             {
                 if ((this.y <= entity.y + entity.h || this.y + this.h >= entity.y)
-                    && this.x > entity.x && this.x < entity.x + entity.w)
+                    && this.x + this.w > entity.x && this.x < entity.x + entity.w)
                 {
                     this.currentVelX = entity.onHitTopAndBottom(this.currentVelX, entity.x, entity.w, this.x, this.w);
                     this.currentVelY *= -1;
                     entity.onHit();
-                    //this.ballXVal(entity.x, entity.w, this.x, this.w);
                 }
                 if ((this.x + this.w >= entity.x || this.x <= entity.x + entity.w)
-                    && this.y > entity.y && this.y < entity.y + entity.h)
+                    && this.y + this.h > entity.y && this.y < entity.y + entity.h)
                 {
                     this.currentVelX *= -1;
                     entity.onHit();
-                    //this.ballYVal(entity.y, entity.h, this.y, this.h);
                 }
             }
         });
@@ -100,5 +66,5 @@ export class Ball extends BaseEntity
     {
         return 0;
     }
-    onHit():void {}
+    onHit(): void{}
 }

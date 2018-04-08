@@ -16,7 +16,6 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     g.entities.push(player);
     g.collidingEntities.push(player);
     function setUpLevel() {
-        ;
         var verticalSpacing = 0;
         var horizontalSpacing = 0;
         for (var y = 0; y < 10; y++) {

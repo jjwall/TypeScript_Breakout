@@ -1,5 +1,5 @@
 import { BaseEntity } from './BaseEntity';
-import { ICollision } from '../interfaces/ICollision';
+//import { ICollision } from '../interfaces/ICollision';
 
 export class Paddle extends BaseEntity //implements ICollision
 {
@@ -17,7 +17,7 @@ export class Paddle extends BaseEntity //implements ICollision
         super(xpos, ypos, height, width);
         this.currentVel = currentVelocity;
     }
-    accelerate(currentVelocity: number, maxVelocity: number, direction: string) : void
+    accelerate(currentVelocity: number, maxVelocity: number, direction: string): void
     {
         switch(direction) {
             case "left":
@@ -83,10 +83,10 @@ export class Paddle extends BaseEntity //implements ICollision
         // i.e. right half of the entity
         else if (ballXpos > halfWidth) {
             let ratio = <number> ((ballXpos - halfWidth) / 100);
-            return multiple * ratio;
+            return 12 * ratio; // -> little more multiple since middle of ball is not factored in
         }
         else 
             return 0;
     }
-    onHit():void {}
+    onHit(): void{}
 }

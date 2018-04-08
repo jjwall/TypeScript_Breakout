@@ -1,6 +1,3 @@
-import { BaseEntity } from "../classes/BaseEntity";
-import { Block } from "../classes/Block";
-
 export function renderBlocks():boolean[] {
     function random() {
         return Math.floor(Math.random() * 2);
@@ -20,7 +17,7 @@ export function renderBlocks():boolean[] {
             numberOfTruths++;
         }
     });
-    if (numberOfTruths == 0) {
+    if (numberOfTruths === 0) {
         return renderBlocks();
     }
     let partialPattern2 = partialPattern1.slice();

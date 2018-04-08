@@ -1,18 +1,18 @@
-//import Block = require("./Block");
 import { Paddle } from './classes/Paddle';
 import { Ball } from './classes/Ball';
 import { Block } from './classes/Block';
 import { BaseEntity } from './classes/BaseEntity';
 import { drawEntities } from './functions/drawEntities';
 import { renderBlocks } from './functions/renderBlocks';
-import { ICollision } from './interfaces/ICollision';
+//import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
-// 1. Fix collision for paddle
-// 2. Implement ICollision for Paddle and Block
-// 3. Write algorithm for generating random blocks
-// 4. Make level system
-// 5. Add collision manifold system
+// 1. Make level system
+// 2. Add life system
+// 3. Add score system
+// 4. Add collision manifold subsystem to AABB system
+// 5. Add menu system
+// 6. Add high score system (Firebase? SQL? Mongo?)
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -33,7 +33,7 @@ g.entities.push(ball);
 g.entities.push(player);
 g.collidingEntities.push(player);
 
-function setUpLevel():void {;
+function setUpLevel():void {
     let verticalSpacing = <number> 0;
     let horizontalSpacing = <number> 0;
     for (let y: number = 0; y < 10; y++) {

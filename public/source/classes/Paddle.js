@@ -86,7 +86,7 @@ define(["require", "exports", "./BaseEntity"], function (require, exports, BaseE
             }
             else if (ballXpos > halfWidth) {
                 var ratio = ((ballXpos - halfWidth) / 100);
-                return multiple * ratio;
+                return 12 * ratio;
             }
             else
                 return 0;

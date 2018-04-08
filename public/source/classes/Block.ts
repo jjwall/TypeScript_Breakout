@@ -1,5 +1,5 @@
 import { BaseEntity } from './BaseEntity';
-import { ICollision } from '../interfaces/ICollision';
+//import { ICollision } from '../interfaces/ICollision';
 
 export class Block extends BaseEntity// implements ICollision
 {
