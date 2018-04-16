@@ -46,21 +46,20 @@ export class Ball extends BaseEntity
                 && this.y <= entity.y + entity.h &&
                 this.h + this.y >= entity.y)
             {
-                if ((this.y <= entity.y + entity.h || this.y + this.h >= entity.y)
-                    && this.x + this.w > entity.x && this.x < entity.x + entity.w)
-                {
-                    this.currentVelX = entity.onHitTopAndBottom(this.currentVelX, entity.x, entity.w, this.x, this.w);
-                    this.currentVelY *= -1;
-                    entity.onHit();
-                }
-                // vv this needs to be fixed vv
+
                 if ((this.x + this.w >= entity.x || this.x <= entity.x + entity.w)
                     && this.y + this.h > entity.y && this.y < entity.y + entity.h)
                 {
                     this.currentVelX *= -1;
                     entity.onHit();
                 }
-                // ^^ fix this hack ^^
+                else if ((this.y <= entity.y + entity.h || this.y + this.h >= entity.y)
+                    && this.x + this.w > entity.x && this.x < entity.x + entity.w)
+                {
+                    this.currentVelX = entity.onHitTopAndBottom(this.currentVelX, entity.x, entity.w, this.x, this.w);
+                    this.currentVelY *= -1;
+                    entity.onHit();
+                }
             }
         });
     }

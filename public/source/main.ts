@@ -7,12 +7,10 @@ import { renderBlocks } from './functions/renderBlocks';
 //import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
-// 1. Add collision manifold subsystem to AABB system
-// 2. Add high score system (Firebase? SQL? Mongo?)
+// 1. Add collision manifold subsystem to AABB system (to fix ball clipping through paddle bug)
+// 2. Add high score system (Mongo)
 // 3. Add mobile controls
-// 4. fix left / right collision mechanics
-// 5. deploy to heroku
-// 6. write up ReadMe
+// 4. Write up ReadMe
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
