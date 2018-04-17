@@ -31,14 +31,35 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     function setUpLevel() {
         var verticalSpacing = 0;
         var horizontalSpacing = 0;
+        var blockColor = "red";
         for (var y = 0; y < 10; y++) {
+            switch (y) {
+                case 0 || 1:
+                    blockColor = "red";
+                    break;
+                case 2 || 3:
+                    blockColor = "orange";
+                    break;
+                case 4 || 5:
+                    blockColor = "yellow";
+                    break;
+                case 6 || 7:
+                    blockColor = "green";
+                    break;
+                case 8:
+                    blockColor = "blue";
+                    break;
+                case 9:
+                    blockColor = "purple";
+                    break;
+            }
             var blocks = renderBlocks_1.renderBlocks();
             verticalSpacing += 50;
             horizontalSpacing = 0;
             for (var x = 0; x < blocks.length; x++) {
                 horizontalSpacing += 30;
                 if (blocks[x]) {
-                    var block = new Block_1.Block(horizontalSpacing, verticalSpacing, 20, 60);
+                    var block = new Block_1.Block(horizontalSpacing, verticalSpacing, 20, 60, blockColor);
                     g.entities.push(block);
                     g.collidingEntities.push(block);
                 }

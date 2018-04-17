@@ -6,6 +6,8 @@ define(["require", "exports"], function (require, exports) {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.beginPath();
         entities.forEach(function (entity) {
+            ctx.fillStyle = entity.color;
+            ctx.fillRect(entity.x, entity.y, entity.w, entity.h);
             entity.draw(ctx);
         });
         ctx.stroke();

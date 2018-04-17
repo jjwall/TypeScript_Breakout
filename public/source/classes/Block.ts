@@ -8,9 +8,10 @@ export class Block extends BaseEntity// implements ICollision
     constructor(public xpos: number,
                 public ypos: number,
                 public height: number,
-                public width: number)
+                public width: number,
+                public Color: string)
     {
-        super(xpos, ypos, height, width);
+        super(xpos, ypos, height, width, Color);
         Block.total++;
     }
     onHitTopAndBottom(ballXVel: number, entityXpos: number, entityWidth: number, ballXpos: number, ballWidth: number): number

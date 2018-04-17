@@ -49,14 +49,35 @@ g.startButton.onclick = function() {
 function setUpLevel():void {
     let verticalSpacing = <number> 0;
     let horizontalSpacing = <number> 0;
+    let blockColor = <string>"red";
     for (let y: number = 0; y < 10; y++) {
+        switch (y) {
+            case 0 || 1:
+            blockColor = "red";
+            break;
+            case 2 || 3:
+            blockColor = "orange";
+            break;
+            case 4 || 5:
+            blockColor = "yellow";
+            break;
+            case 6 || 7:
+            blockColor = "green";
+            break;
+            case 8:
+            blockColor = "blue";
+            break;
+            case 9:
+            blockColor = "purple";
+            break;
+        }
         let blocks = <Array<boolean>>renderBlocks();
         verticalSpacing += 50;
         horizontalSpacing = 0;
         for (let x: number = 0; x < blocks.length; x++) {
             horizontalSpacing += 30;
             if (blocks[x]) {
-                let block = new Block(horizontalSpacing, verticalSpacing, 20, 60);
+                let block = new Block(horizontalSpacing, verticalSpacing, 20, 60, blockColor);
                 g.entities.push(block);
                 g.collidingEntities.push(block);
             }

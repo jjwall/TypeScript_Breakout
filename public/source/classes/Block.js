@@ -13,12 +13,13 @@ define(["require", "exports", "./BaseEntity", "../main"], function (require, exp
     exports.__esModule = true;
     var Block = (function (_super) {
         __extends(Block, _super);
-        function Block(xpos, ypos, height, width) {
-            var _this = _super.call(this, xpos, ypos, height, width) || this;
+        function Block(xpos, ypos, height, width, Color) {
+            var _this = _super.call(this, xpos, ypos, height, width, Color) || this;
             _this.xpos = xpos;
             _this.ypos = ypos;
             _this.height = height;
             _this.width = width;
+            _this.Color = Color;
             Block.total++;
             return _this;
         }

@@ -5,10 +5,12 @@ export abstract class BaseEntity
     h: number;
     w: number;
     isDead: boolean;
+    color: string;
     constructor(public xpos: number,
                 public ypos: number,
                 public height: number,
                 public width: number,
+                public Color: string = "grey",
                 public IsDead: boolean = false)
     {
         this.x = xpos;
@@ -16,6 +18,7 @@ export abstract class BaseEntity
         this.h = height;
         this.w = width;
         this.isDead = IsDead;
+        this.color = Color;
     }
     draw(ctx: CanvasRenderingContext2D) 
     {
