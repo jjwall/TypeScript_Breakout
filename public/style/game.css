@@ -69,7 +69,7 @@ canvas {
 #startButton {
     position: absolute;
     left: 280px;
-    top: 400px;
+    top: 490px;
     /* background-color: #4CAF50;
     border: none;
     color: white;
@@ -78,4 +78,24 @@ canvas {
     text-decoration: none;
     display: inline-block;
     font-size: 16px; */
+}
+
+#highscoreTable {
+    position: absolute;
+    left: 42px;
+    top: 150px;
+    color: white;
+    background-color: darkslategrey;
+}
+
+th, td {
+    color: white;
+    border: 1px solid white;
+}
+
+#scoreDiv {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
 }

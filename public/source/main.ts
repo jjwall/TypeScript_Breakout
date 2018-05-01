@@ -8,7 +8,7 @@ import { renderBlocks } from './functions/renderBlocks';
 
 // TO DO:
 // 1. Add collision manifold subsystem to AABB system (to fix ball clipping through paddle bug)
-// 2. Add high score system (Mongo)
+// 2. Add high score system (SQLite)
 // 3. Add mobile controls
 // 4. Write up ReadMe
 
@@ -27,6 +27,7 @@ let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
         lives: <HTMLElement> document.getElementById('livesValue'),
         level: <HTMLElement> document.getElementById('levelValue'),
         startButton: <HTMLElement> document.getElementById('startButton'),
+        highscoreTable: <HTMLElement> document.getElementById('highscoreTable'),
         scoreValue: <number> 0,
         livesValue: <number> 3,
         levelValue: <number> 1
@@ -124,10 +125,13 @@ function nextLevel():void {
 
 function loseState():void {
     // need add more like "You lost" message
+    //prompt("Enter your name:");
     g.startButton.style.display = 'block';
+    displayHighscores();
 }
 
 function startGame():void {
+    g.highscoreTable.innerHTML = "";
     Block.total = 0;
     g.entities = <BaseEntity[]>[];
     g.collidingEntities = <BaseEntity[]>[];
@@ -164,6 +168,36 @@ window.onkeyup = function(e) {
     if (e.keyCode === 39) {
         g.keyRight = false;
     }
+}
+
+// highscore system
+function displayHighscores():void {
+    fetch(window.location.href + 'highscores')
+    .then(function(response) {
+        console.log(response);
+        return response.json();
+    })
+    .then(function(myJson) {
+        console.log(myJson);
+        var tableString = "";
+        tableString +=
+            `<tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Level</th>
+            </tr>`;
+        for (var i = 0; i < myJson.length; i++) {
+            tableString += 
+                `<tr>
+                    <td>${i + 1}</td>
+                    <td>${myJson[i].Name}</td>
+                    <td>${myJson[i].Score}</td>
+                    <td>${myJson[i].Level}</td>
+                </tr>`;
+        }
+        g.highscoreTable.innerHTML = tableString;
+    });
 }
 
 // main loop

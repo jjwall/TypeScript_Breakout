@@ -23,6 +23,7 @@
   "homepage": "https://github.com/jjwall/TypeScript_Breakout#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sqlite3": "^4.0.0"
   }
 }

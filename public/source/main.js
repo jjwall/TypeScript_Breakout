@@ -13,6 +13,7 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
         lives: document.getElementById('livesValue'),
         level: document.getElementById('levelValue'),
         startButton: document.getElementById('startButton'),
+        highscoreTable: document.getElementById('highscoreTable'),
         scoreValue: 0,
         livesValue: 3,
         levelValue: 1
@@ -104,8 +105,10 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     }
     function loseState() {
         g.startButton.style.display = 'block';
+        displayHighscores();
     }
     function startGame() {
+        g.highscoreTable.innerHTML = "";
         Block_1.Block.total = 0;
         g.entities = [];
         g.collidingEntities = [];
@@ -140,6 +143,24 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
             g.keyRight = false;
         }
     };
+    function displayHighscores() {
+        fetch(window.location.href + 'highscores')
+            .then(function (response) {
+            console.log(response);
+            return response.json();
+        })
+            .then(function (myJson) {
+            console.log(myJson);
+            var tableString = "";
+            tableString +=
+                "<tr>\n                <th>Rank</th>\n                <th>Name</th>\n                <th>Score</th>\n                <th>Level</th>\n            </tr>";
+            for (var i = 0; i < myJson.length; i++) {
+                tableString +=
+                    "<tr>\n                    <td>" + (i + 1) + "</td>\n                    <td>" + myJson[i].Name + "</td>\n                    <td>" + myJson[i].Score + "</td>\n                    <td>" + myJson[i].Level + "</td>\n                </tr>";
+            }
+            g.highscoreTable.innerHTML = tableString;
+        });
+    }
     setInterval(function () {
         drawEntities_1.drawEntities(ctx, g.entities, g.canvasW, g.canvasH);
         player.update(g.keyLeft, g.keyRight);
