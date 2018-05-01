@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/jjwall/TypeScript_Breakout#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "morgan": "^1.9.0",
     "path": "^0.12.7",
     "sqlite3": "^4.0.0"
   }

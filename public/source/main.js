@@ -71,7 +71,7 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     function loseLifeResetAndCheckLoseState() {
         g.livesValue--;
         g.lives.innerHTML = g.livesValue.toString();
-        ball.x = 400;
+        ball.x = 395;
         ball.y = 600;
         ball.currentVelX = 0;
         ball.currentVelY = 0;
@@ -104,6 +104,8 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
         }, 3000);
     }
     function loseState() {
+        var playerName = prompt("Enter your name:");
+        submitScore(playerName);
         g.startButton.style.display = 'block';
         displayHighscores();
     }
@@ -143,14 +145,24 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
             g.keyRight = false;
         }
     };
+    function submitScore(name) {
+        var url = window.location.href + 'submitScore';
+        var data = { Name: name, Score: g.scoreValue, Level: g.levelValue };
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(function (res) { return res.json(); })["catch"](function (error) { return console.error('Error:', error); })
+            .then(function (response) { return console.log('Success:', response); });
+    }
     function displayHighscores() {
         fetch(window.location.href + 'highscores')
             .then(function (response) {
-            console.log(response);
             return response.json();
         })
             .then(function (myJson) {
-            console.log(myJson);
             var tableString = "";
             tableString +=
                 "<tr>\n                <th>Rank</th>\n                <th>Name</th>\n                <th>Score</th>\n                <th>Level</th>\n            </tr>";

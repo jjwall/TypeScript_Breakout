@@ -8,8 +8,8 @@ import { renderBlocks } from './functions/renderBlocks';
 
 // TO DO:
 // 1. Add collision manifold subsystem to AABB system (to fix ball clipping through paddle bug)
-// 2. Add high score system (SQLite)
-// 3. Add mobile controls
+// 2. Add mobile controls
+// 3. Add detect screen height system for multi-platform support
 // 4. Write up ReadMe
 
 // main global object
@@ -90,7 +90,7 @@ function setUpLevel():void {
 export function loseLifeResetAndCheckLoseState():void {
     g.livesValue--;
     g.lives.innerHTML = g.livesValue.toString();
-    ball.x = 400;
+    ball.x = 395;
     ball.y = 600;
     ball.currentVelX = 0;
     ball.currentVelY = 0;
@@ -125,7 +125,8 @@ function nextLevel():void {
 
 function loseState():void {
     // need add more like "You lost" message
-    //prompt("Enter your name:");
+    var playerName = prompt("Enter your name:");
+    submitScore(playerName);
     g.startButton.style.display = 'block';
     displayHighscores();
 }
@@ -170,15 +171,28 @@ window.onkeyup = function(e) {
     }
 }
 
-// highscore system
+// Highscore system
+function submitScore(name: string):void {
+    var url = window.location.href + 'submitScore';
+    var data = {Name: name, Score: g.scoreValue, Level: g.levelValue};
+
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+}
+
 function displayHighscores():void {
     fetch(window.location.href + 'highscores')
     .then(function(response) {
-        console.log(response);
         return response.json();
     })
     .then(function(myJson) {
-        console.log(myJson);
         var tableString = "";
         tableString +=
             `<tr>
