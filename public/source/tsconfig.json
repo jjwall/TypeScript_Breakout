@@ -15,6 +15,7 @@
         "classes/Block.ts",
         "functions/drawEntities.ts",
         "functions/renderBlocks.ts",
+        "functions/submitScore.ts",
         "interfaces/ICollision.ts"
     ]
 }

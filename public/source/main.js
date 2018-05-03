@@ -1,4 +1,4 @@
-define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/Block", "./functions/drawEntities", "./functions/renderBlocks"], function (require, exports, Paddle_1, Ball_1, Block_1, drawEntities_1, renderBlocks_1) {
+define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/Block", "./functions/drawEntities", "./functions/renderBlocks", "./functions/submitScore"], function (require, exports, Paddle_1, Ball_1, Block_1, drawEntities_1, renderBlocks_1, submitScore_1) {
     "use strict";
     exports.__esModule = true;
     var canvas = document.getElementById('gameScreen'), ctx = canvas.getContext('2d'), g = {
@@ -105,7 +105,7 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
     }
     function loseState() {
         var playerName = prompt("Enter your name:");
-        submitScore(playerName);
+        submitScore_1.submitScore(playerName, g.scoreValue, g.levelValue);
         g.startButton.style.display = 'block';
         displayHighscores();
     }
@@ -145,18 +145,6 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
             g.keyRight = false;
         }
     };
-    function submitScore(name) {
-        var url = window.location.href + 'submitScore';
-        var data = { Name: name, Score: g.scoreValue, Level: g.levelValue };
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }).then(function (res) { return res.json(); })["catch"](function (error) { return console.error('Error:', error); })
-            .then(function (response) { return console.log('Success:', response); });
-    }
     function displayHighscores() {
         fetch(window.location.href + 'highscores')
             .then(function (response) {

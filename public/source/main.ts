@@ -4,13 +4,15 @@ import { Block } from './classes/Block';
 import { BaseEntity } from './classes/BaseEntity';
 import { drawEntities } from './functions/drawEntities';
 import { renderBlocks } from './functions/renderBlocks';
+import { submitScore } from './functions/submitScore';
 //import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
-// 1. Add collision manifold subsystem to AABB system (to fix ball clipping through paddle bug)
-// 2. Add mobile controls
+// 1. Write BallPaddleManifold class that handles ball / paddle collision through collision manifolds
+// 2. Add mobile controls (left / right touch buttons)
 // 3. Add detect screen height system for multi-platform support
 // 4. Write up ReadMe
+// 5. Add sounds (lol)
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -124,9 +126,8 @@ function nextLevel():void {
 }
 
 function loseState():void {
-    // need add more like "You lost" message
     var playerName = prompt("Enter your name:");
-    submitScore(playerName);
+    submitScore(playerName, g.scoreValue, g.levelValue);
     g.startButton.style.display = 'block';
     displayHighscores();
 }
@@ -169,22 +170,6 @@ window.onkeyup = function(e) {
     if (e.keyCode === 39) {
         g.keyRight = false;
     }
-}
-
-// Highscore system
-function submitScore(name: string):void {
-    var url = window.location.href + 'submitScore';
-    var data = {Name: name, Score: g.scoreValue, Level: g.levelValue};
-
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        })
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
 }
 
 function displayHighscores():void {
