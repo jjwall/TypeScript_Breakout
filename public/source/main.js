@@ -16,7 +16,9 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
         highscoreTable: document.getElementById('highscoreTable'),
         scoreValue: 0,
         livesValue: 3,
-        levelValue: 1
+        levelValue: 1,
+        touchLeft: document.getElementById('touchLeft'),
+        touchRight: document.getElementById('touchRight')
     };
     var player = new Paddle_1.Paddle(350, 1000, 20, 100, g.canvasW);
     var ball = new Ball_1.Ball(395, 600, 20, 20, g.canvasH, g.canvasW);
@@ -145,6 +147,40 @@ define(["require", "exports", "./classes/Paddle", "./classes/Ball", "./classes/B
             g.keyRight = false;
         }
     };
+    g.touchLeft.addEventListener('touchstart', touchLeftStart, false);
+    g.touchLeft.addEventListener('touchend', touchLeftEnd, false);
+    g.touchRight.addEventListener('touchstart', touchRightStart, false);
+    g.touchRight.addEventListener('touchend', touchRightEnd, false);
+    function touchLeftStart(e) {
+        g.keyLeft = true;
+        var t2 = e.timeStamp;
+        var t1 = e.currentTarget.dataset.lastTouch || t2;
+        var dt = t2 - t1;
+        var fingers = e.touches.length;
+        e.currentTarget.dataset.lastTouch = t2;
+        if (!dt || dt > 500 || fingers > 1)
+            return;
+        e.preventDefault();
+        e.target.click();
+    }
+    function touchLeftEnd() {
+        g.keyLeft = false;
+    }
+    function touchRightStart(e) {
+        g.keyRight = true;
+        var t2 = e.timeStamp;
+        var t1 = e.currentTarget.dataset.lastTouch || t2;
+        var dt = t2 - t1;
+        var fingers = e.touches.length;
+        e.currentTarget.dataset.lastTouch = t2;
+        if (!dt || dt > 500 || fingers > 1)
+            return;
+        e.preventDefault();
+        e.target.click();
+    }
+    function touchRightEnd() {
+        g.keyRight = false;
+    }
     function displayHighscores() {
         fetch(window.location.href + 'highscores')
             .then(function (response) {

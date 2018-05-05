@@ -9,10 +9,7 @@ import { submitScore } from './functions/submitScore';
 
 // TO DO:
 // 1. Write BallPaddleManifold class that handles ball / paddle collision through collision manifolds
-// 2. Add mobile controls (left / right touch buttons)
-// 3. Add detect screen height system for multi-platform support
-// 4. Write up ReadMe
-// 5. Add sounds (lol)
+// 2. Add sounds
 
 // main global object
 let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
@@ -32,7 +29,9 @@ let canvas = <HTMLCanvasElement>document.getElementById('gameScreen'),
         highscoreTable: <HTMLElement> document.getElementById('highscoreTable'),
         scoreValue: <number> 0,
         livesValue: <number> 3,
-        levelValue: <number> 1
+        levelValue: <number> 1,
+        touchLeft: <HTMLElement> document.getElementById('touchLeft'),
+        touchRight: <HTMLElement> document.getElementById('touchRight')
     }
 
 // set up player, ball and ui
@@ -170,6 +169,53 @@ window.onkeyup = function(e) {
     if (e.keyCode === 39) {
         g.keyRight = false;
     }
+}
+
+// touch controls
+g.touchLeft.addEventListener('touchstart', touchLeftStart, false);
+g.touchLeft.addEventListener('touchend', touchLeftEnd, false);
+
+g.touchRight.addEventListener('touchstart', touchRightStart, false);
+g.touchRight.addEventListener('touchend', touchRightEnd, false);
+
+function touchLeftStart(e:any):void {
+    g.keyLeft = true;
+    
+    // code to disable double tap zoom
+    var t2 = e.timeStamp;
+    var t1 = e.currentTarget.dataset.lastTouch || t2;
+    var dt = t2 - t1;
+    var fingers = e.touches.length;
+    e.currentTarget.dataset.lastTouch = t2;
+  
+    if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+  
+    e.preventDefault();
+    e.target.click();
+}
+
+function touchLeftEnd():void {
+    g.keyLeft = false;
+}
+
+function touchRightStart(e:any):void {
+    g.keyRight = true;
+
+    // code to disable double tap zoom
+    var t2 = e.timeStamp;
+    var t1 = e.currentTarget.dataset.lastTouch || t2;
+    var dt = t2 - t1;
+    var fingers = e.touches.length;
+    e.currentTarget.dataset.lastTouch = t2;
+
+    if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+
+    e.preventDefault();
+    e.target.click();
+}
+
+function touchRightEnd():void {
+    g.keyRight = false;
 }
 
 function displayHighscores():void {
