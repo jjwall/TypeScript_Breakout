@@ -1,8 +1,8 @@
 import { BaseEntity } from './BaseEntity';
 import { addToScoreAndCheckWinState } from '../main';
-//import { ICollision } from '../interfaces/ICollision';
+import { ICollision } from '../interfaces/ICollision';
 
-export class Block extends BaseEntity// implements ICollision
+export class Block extends BaseEntity implements ICollision
 {
     static total: number = 0;
     constructor(public xpos: number,

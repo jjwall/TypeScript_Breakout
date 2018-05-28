@@ -48,20 +48,22 @@ define(["require", "exports", "./BaseEntity", "./../main"], function (require, e
         Ball.prototype.collide = function (entities) {
             var _this = this;
             entities.forEach(function (entity) {
-                if (_this.x <= entity.x + entity.w &&
-                    _this.x + _this.w >= entity.x
-                    && _this.y <= entity.y + entity.h &&
-                    _this.h + _this.y >= entity.y) {
-                    if ((_this.x + _this.w >= entity.x || _this.x <= entity.x + entity.w)
-                        && _this.y + _this.h > entity.y && _this.y < entity.y + entity.h) {
-                        _this.currentVelX *= -1;
-                        entity.onHit();
-                    }
-                    else if ((_this.y <= entity.y + entity.h || _this.y + _this.h >= entity.y)
-                        && _this.x + _this.w > entity.x && _this.x < entity.x + entity.w) {
-                        _this.currentVelX = entity.onHitTopAndBottom(_this.currentVelX, entity.x, entity.w, _this.x, _this.w);
-                        _this.currentVelY *= -1;
-                        entity.onHit();
+                if (entity.isCollidable(entity)) {
+                    if (_this.x <= entity.x + entity.w &&
+                        _this.x + _this.w >= entity.x
+                        && _this.y <= entity.y + entity.h &&
+                        _this.h + _this.y >= entity.y) {
+                        if ((_this.x + _this.w >= entity.x || _this.x <= entity.x + entity.w)
+                            && _this.y + _this.h > entity.y && _this.y < entity.y + entity.h) {
+                            _this.currentVelX *= -1;
+                            entity.onHit();
+                        }
+                        else if ((_this.y <= entity.y + entity.h || _this.y + _this.h >= entity.y)
+                            && _this.x + _this.w > entity.x && _this.x < entity.x + entity.w) {
+                            _this.currentVelX = entity.onHitTopAndBottom(_this.currentVelX, entity.x, entity.w, _this.x, _this.w);
+                            _this.currentVelY *= -1;
+                            entity.onHit();
+                        }
                     }
                 }
             });

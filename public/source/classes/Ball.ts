@@ -1,6 +1,6 @@
 import { BaseEntity } from './BaseEntity';
 import { loseLifeResetAndCheckLoseState } from './../main';
-//import { ICollision } from '../interfaces/ICollision';
+import { ICollision } from '../interfaces/ICollision';
 
 export class Ball extends BaseEntity
 {
@@ -41,24 +41,26 @@ export class Ball extends BaseEntity
     collide(entities: BaseEntity[]): void
     {
         entities.forEach(entity => {
-            if (this.x <= entity.x + entity.w &&
-                this.x + this.w >= entity.x
-                && this.y <= entity.y + entity.h &&
-                this.h + this.y >= entity.y)
-            {
+            if (entity.isCollidable(entity)) {
+                if (this.x <= entity.x + entity.w &&
+                    this.x + this.w >= entity.x
+                    && this.y <= entity.y + entity.h &&
+                    this.h + this.y >= entity.y)
+                {
 
-                if ((this.x + this.w >= entity.x || this.x <= entity.x + entity.w)
-                    && this.y + this.h > entity.y && this.y < entity.y + entity.h)
-                {
-                    this.currentVelX *= -1;
-                    entity.onHit();
-                }
-                else if ((this.y <= entity.y + entity.h || this.y + this.h >= entity.y)
-                    && this.x + this.w > entity.x && this.x < entity.x + entity.w)
-                {
-                    this.currentVelX = entity.onHitTopAndBottom(this.currentVelX, entity.x, entity.w, this.x, this.w);
-                    this.currentVelY *= -1;
-                    entity.onHit();
+                    if ((this.x + this.w >= entity.x || this.x <= entity.x + entity.w)
+                        && this.y + this.h > entity.y && this.y < entity.y + entity.h)
+                    {
+                        this.currentVelX *= -1;
+                        entity.onHit();
+                    }
+                    else if ((this.y <= entity.y + entity.h || this.y + this.h >= entity.y)
+                        && this.x + this.w > entity.x && this.x < entity.x + entity.w)
+                    {
+                        this.currentVelX = entity.onHitTopAndBottom(this.currentVelX, entity.x, entity.w, this.x, this.w);
+                        this.currentVelY *= -1;
+                        entity.onHit();
+                    }
                 }
             }
         });

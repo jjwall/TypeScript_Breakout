@@ -21,6 +21,9 @@ define(["require", "exports"], function (require, exports) {
         BaseEntity.prototype.draw = function (ctx) {
             return ctx.rect(this.x, this.y, this.w, this.h);
         };
+        BaseEntity.prototype.isCollidable = function (object) {
+            return true;
+        };
         return BaseEntity;
     }());
     exports.BaseEntity = BaseEntity;

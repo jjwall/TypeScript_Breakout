@@ -1,3 +1,5 @@
+import { ICollision } from "../interfaces/ICollision";
+
 export abstract class BaseEntity
 {
     x: number;
@@ -24,6 +26,7 @@ export abstract class BaseEntity
     {
         return ctx.rect(this.x, this.y, this.w, this.h);
     }
-    abstract onHitTopAndBottom(ballXVel: number, entityXpos: number, entityWidth: number, ballXpos: number, ballWidth: number): number;
-    abstract onHit(): void;
+    isCollidable(object: any): object is ICollision {
+        return true;
+    }
 }

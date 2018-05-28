@@ -1,7 +1,7 @@
 import { BaseEntity } from './BaseEntity';
-//import { ICollision } from '../interfaces/ICollision';
+import { ICollision } from '../interfaces/ICollision';
 
-export class Paddle extends BaseEntity //implements ICollision
+export class Paddle extends BaseEntity implements ICollision
 {
     currentVel: number;
     static canvasW: number;
