@@ -5,7 +5,6 @@ import { BaseEntity } from './classes/BaseEntity';
 import { drawEntities } from './functions/drawEntities';
 import { renderBlocks } from './functions/renderBlocks';
 import { submitScore } from './functions/submitScore';
-//import { ICollision } from './interfaces/ICollision';
 
 // TO DO:
 // 1. Write BallPaddleManifold class that handles ball / paddle collision through collision manifolds

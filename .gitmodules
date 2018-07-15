@@ -1,0 +1,6 @@
+[submodule "ext/requirejs"]
+	path = ext/requirejs
+	url = https://github.com/requirejs/requirejs
+[submodule "public/ext/requirejs"]
+	path = public/ext/requirejs
+	url = https://github.com/requirejs/requirejs

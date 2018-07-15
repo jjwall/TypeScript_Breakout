@@ -1,6 +1,5 @@
 import { BaseEntity } from './BaseEntity';
 import { loseLifeResetAndCheckLoseState } from './../main';
-import { ICollision } from '../interfaces/ICollision';
 
 export class Ball extends BaseEntity
 {
